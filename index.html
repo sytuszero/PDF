@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <script>
+        (function() {
+            var theme = localStorage.getItem('expdf_theme') || 'dark';
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ExPDF | Extract & Split PDF Pages Free</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="ExPDF is a professional, 100% secure PDF tool. استخراج وتقسيم صفحات PDF مجاناً. Extract, remove, and split PDF pages directly in your browser without uploading your files.">
+    <meta name="keywords" content="PDF extractor, split PDF, استخراج PDF, تقسيم PDF, قص ملفات PDF, remove PDF pages, secure PDF tool, أدوات PDF مجانية, client-side PDF, ExPDF">
+    <meta name="theme-color" content="#050a18">
+    <meta name="author" content="ExPDF">
+    <meta name="language" content="English, Arabic">
+    <link rel="canonical" href="https://expdf.space/" />
+
+    <!-- Software Application Schema for Google Rich Snippets -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "ExPDF",
+      "url": "https://expdf.space/",
+      "description": "Securely extract, remove, compress, and split PDF pages directly in your browser. Free, fast, and 100% offline-capable PDF tools.",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "All",
+      "offers": {
+        "@type": "Offer",
+        "price": "0"
+      },
+      "featureList": [
+        "Extract PDF Pages",
+        "Remove PDF Pages",
+        "Compress PDF",
+        "Convert PDF to JPG",
+        "Merge PDF Files"
+      ]
+    }
+    </script>
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="ExPDF | Extract & Split PDF Pages Free | استخراج وتقسيم PDF">
+    <meta property="og:description" content="Securely extract, remove, and split PDF pages directly in your browser. استخراج وتقسيم ملفات PDF مجاناً وبأمان تام.">
+    <meta property="og:site_name" content="ExPDF">
+    <meta property="og:url" content="https://expdf.space/">
+    <meta property="og:image" content="./assets/logo.png">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="ExPDF | Extract & Split PDF Pages Free | استخراج وتقسيم PDF">
+    <meta name="twitter:description" content="Securely extract, remove, and split PDF pages directly in your browser. استخراج وتقسيم ملفات PDF مجاناً وبأمان تام.">
+    <meta name="twitter:image" content="./assets/logo.png">
+
+    <!-- Favicon (SVG / PNG) -->
+    <link rel="icon" type="image/png" href="./assets/logo.png">
+    <!-- Google Fonts (X-Stein Visual ID) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@500;700;800&family=JetBrains+Mono:wght@500;700;800&family=Noto+Kufi+Arabic:wght@400;600;700;800&family=Alexandria:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Flag Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/7.1.0/css/flag-icons.min.css">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="styles.css?v=32">
+</head>
+<body>
+    <!-- Futuristic Dot Grid Background -->
+    <div class="futuristic-grid-bg"></div>
+    <div class="app-container">
+        <!-- Sidebar Controls -->
+        <aside class="sidebar">
+            <div class="logo-area">
+                    <div class="logo-icon" style="padding: 0; overflow: hidden;">
+                        <img src="./assets/logo.png" alt="ExPDF Logo" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div>
+                    <h1 data-i18n-text="brandName">NexExtract</h1>
+                    <span class="subtitle" data-i18n-text="brandSub">PDF Core Suite</span>
+                </div>
+            </div>
+
+            <!-- Upload Zone -->
+            <div class="upload-section">
+                <div id="dropzone" class="dropzone">
+                    <input type="file" id="file-input-pdf" accept=".pdf" class="file-input" multiple style="display: none;" />
+                    <input type="file" id="file-input-img" accept=".jpg, .jpeg, .png, .webp" class="file-input" multiple style="display: none;" />
+                    <div class="dropzone-content" style="pointer-events: none;">
+                        <i data-lucide="upload-cloud" class="upload-icon animate-bounce" style="margin-bottom: 15px;"></i>
+                        <div class="upload-buttons" style="display: flex; flex-wrap: wrap; justify-content: center; width: 100%; gap: 10px; margin-bottom: 15px; pointer-events: auto;">
+                            <button id="btn-upload-pdf" class="btn-primary" onclick="document.getElementById('file-input-pdf').click()" style="flex: 1; min-width: 140px; z-index: 10; font-size: 0.9rem;">
+                                <i data-lucide="file-text"></i>
+                                <span data-i18n-text="uploadPdfBtn">Upload PDF</span>
+                            </button>
+                            <button id="btn-upload-img" class="btn-secondary" onclick="document.getElementById('file-input-img').click()" style="flex: 1; min-width: 140px; border-color: var(--accent); color: var(--accent); z-index: 10; font-size: 0.9rem;">
+                                <i data-lucide="image"></i>
+                                <span data-i18n-text="uploadImgBtn">Image to PDF</span>
+                            </button>
+                        </div>
+                        <span class="file-limits" data-i18n-text="secureText">100% Secure & Client-Side Only</span>
+                    </div>
+                </div>
+                
+                <!-- File List Container -->
+                <div id="file-list-container" class="file-list-container hidden">
+                    <!-- File cards will be generated here by JS -->
+                </div>
+            </div>
+
+            <!-- Page Selection Controls -->
+            <div class="controls-section locked hidden" id="selection-controls">
+                <div class="section-header">
+                    <h3 data-i18n-text="selectPagesHeader">1. Select Pages</h3>
+                    <span class="badge" id="selected-badge">0 selected</span>
+                </div>
+                
+                <!-- Range Input -->
+                <div class="form-group">
+                    <label for="page-range-input">
+                        <span data-i18n-text="pageRangeLabel">Page Range</span> 
+                        <span class="tooltip-trigger">
+                            <i data-lucide="help-circle" class="small-icon"></i>
+                            <span class="tooltip-content" data-i18n-text="pageRangeTooltip">Enter page numbers and/or ranges separated by commas. E.g. "1-3, 5, 7-10"</span>
+                        </span>
+                    </label>
+                    <div class="input-wrapper">
+                        <i data-lucide="hash" class="input-icon"></i>
+                        <input type="text" id="page-range-input" data-i18n="pageRangePlaceholder" placeholder="e.g. 1-5, 8, 11-13" autocomplete="off" disabled />
+                    </div>
+                    <span id="range-validation-error" class="validation-error hidden" data-i18n-text="invalidRange">Invalid page range</span>
+                </div>
+
+                <!-- Selection Helpers -->
+                <div class="helper-buttons-grid">
+                    <button id="btn-select-all" class="btn-secondary" data-i18n-title="selectAll" title="Select All Pages" disabled>
+                        <i data-lucide="check-square"></i> <span data-i18n-text="selectAll">All</span>
+                    </button>
+                    <button id="btn-select-none" class="btn-secondary" data-i18n-title="selectNone" title="Deselect All" disabled>
+                        <i data-lucide="square"></i> <span data-i18n-text="selectNone">None</span>
+                    </button>
+                    <button id="btn-select-invert" class="btn-secondary" data-i18n-title="selectInvert" title="Invert Current Selection" disabled>
+                        <i data-lucide="refresh-cw"></i> <span data-i18n-text="selectInvert">Invert</span>
+                    </button>
+                    <button id="btn-select-even" class="btn-secondary" data-i18n-title="selectEven" title="Select Even Pages" disabled>
+                        <span data-i18n-text="selectEven">Even</span>
+                    </button>
+                    <button id="btn-select-odd" class="btn-secondary" data-i18n-title="selectOdd" title="Select Odd Pages" disabled>
+                        <span data-i18n-text="selectOdd">Odd</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Operations / Actions -->
+            <div class="controls-section locked hidden" id="actions-controls">
+                <div class="section-header">
+                    <h3 data-i18n-text="operationsHeader">2. Operations</h3>
+                </div>
+
+                <div class="actions-stack">
+                    <input type="file" id="file-input-append" accept=".pdf, .jpg, .jpeg, .png, .webp" multiple style="display: none;" />
+                    <button id="btn-add-file" class="btn-primary" onclick="document.getElementById('file-input-append').click()">
+                        <i data-lucide="plus-square"></i>
+                        <div class="btn-text-content">
+                            <span class="btn-title" data-i18n-text="addFileTitle">Add More Files</span>
+                            <span class="btn-desc" data-i18n-text="addFileDesc">Merge PDFs into this document</span>
+                        </div>
+                    </button>
+                    <button id="btn-action-extract" class="btn-primary" disabled>
+                        <i data-lucide="scissors"></i>
+                        <div class="btn-text-content">
+                            <span class="btn-title" data-i18n-text="extractTitle">Extract Selection</span>
+                            <span class="btn-desc" data-i18n-text="extractDesc">Create new PDF with chosen pages</span>
+                        </div>
+                    </button>
+
+                    <button id="btn-action-remove" class="btn-primary btn-alt-color" disabled>
+                        <i data-lucide="trash-2"></i>
+                        <div class="btn-text-content">
+                            <span class="btn-title" data-i18n-text="removeTitle">Remove Selection</span>
+                            <span class="btn-desc" data-i18n-text="removeDesc">Download rest of the PDF</span>
+                        </div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Brand Footer -->
+            <footer class="sidebar-footer">
+                <div class="social-links" style="justify-content: center;">
+                    <a href="https://t.me/sytus" target="_blank" class="social-pill telegram" title="Telegram">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.223-.535.223l.188-2.623 4.823-4.35c.212-.19-.045-.296-.328-.106l-5.96 3.75-2.556-.8c-.556-.165-.568-.553.116-.82l9.96-3.83c.46-.17.863.1.732.584z"/></svg>
+                        <span dir="ltr">@sytus</span>
+                    </a>
+                    <a href="https://instagram.com/lnetl" target="_blank" class="social-pill instagram" title="Instagram">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                        <span dir="ltr">@lnetl</span>
+                    </a>
+                </div>
+                <div class="encryption-status">
+                    <i data-lucide="shield-check" class="secure-icon"></i>
+                    <span data-i18n-text="sandboxText">Local Sandbox Encryption Enabled</span>
+                </div>
+            </footer>
+        </aside>
+
+        <!-- Main Workspace -->
+        <main class="workspace">
+            <header class="workspace-header">
+                <div class="header-title">
+                    <h2 data-i18n-text="workspaceTitle">Interactive Workspace</h2>
+                    <p data-i18n-text="workspaceDesc">Load a PDF to preview pages, select order visually, and extract.</p>
+                </div>
+                <div class="header-actions">
+                    <div class="grid-zoom-controls hidden" id="zoom-controls">
+                        <button id="btn-zoom-out" class="btn-zoom" title="Smaller Thumbnails">
+                            <i data-lucide="minus"></i>
+                        </button>
+                        <span id="zoom-level" data-i18n-text="zoomMedium">Medium</span>
+                        <button id="btn-zoom-in" class="btn-zoom" title="Larger Thumbnails">
+                            <i data-lucide="plus"></i>
+                        </button>
+                    </div>
+                    <button id="theme-switcher" class="theme-btn" onclick="toggleTheme()" title="Toggle Light/Dark Neomorphism">
+                        <i data-lucide="moon" style="width: 16px; height: 16px;"></i>
+                    </button>
+                    <div class="lang-segmented-control" title="Language Switcher / تغيير اللغة">
+                        <button type="button" class="lang-segment-btn" id="lang-btn-en" onclick="setLanguage('en')">
+                            <span class="fi fi-gb" style="border-radius: 2px; line-height: 1;"></span>
+                            <span>EN</span>
+                        </button>
+                        <button type="button" class="lang-segment-btn" id="lang-btn-ar" onclick="setLanguage('ar')">
+                            <span class="fi fi-iq" style="border-radius: 2px; line-height: 1;"></span>
+                            <span>عربي</span>
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Workspace Body / Thumbnail Grid -->
+            <div class="workspace-body" id="workspace-body">
+                <!-- Idle State Message -->
+                <div id="idle-state" class="idle-state">
+                    <div class="idle-3d-wrapper" style="position: relative; width: 100%; height: 300px; display: flex; align-items: center; justify-content: center; overflow: visible; margin-bottom: 6px;">
+                        <canvas id="particle-3d-canvas" style="width: 100%; height: 100%; max-width: 520px; max-height: 300px; display: block; background: transparent; cursor: pointer;"></canvas>
+                    </div>
+                    <h2 data-i18n-text="noPdfTitle">No PDF Loaded</h2>
+                    <p data-i18n-text="noPdfDesc">Drag and drop a PDF file in the sidebar or upload from your device to begin visual extraction</p>
+                    <div class="upload-buttons" style="display: flex; gap: 10px; margin-top: 20px; justify-content: center; flex-wrap: wrap;">
+                        <button id="btn-idle-upload-pdf" class="btn-primary" onclick="document.getElementById('file-input-pdf').click()" style="min-width: 150px; font-size: 1rem; padding: 14px 24px;">
+                            <i data-lucide="file-text"></i> <span data-i18n-text="uploadPdfBtn">Upload PDF</span>
+                        </button>
+                        <button id="btn-idle-upload-img" class="btn-secondary" onclick="document.getElementById('file-input-img').click()" style="min-width: 150px; font-size: 1rem; padding: 14px 24px; border-color: var(--accent); color: var(--accent);">
+                            <i data-lucide="image"></i> <span data-i18n-text="uploadImgBtn">Image to PDF</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Live Grid -->
+                <div id="thumbnail-grid" class="thumbnail-grid hidden zoom-medium">
+                    <!-- JavaScript will dynamically append page items here -->
+                </div>
+            </div>
+            
+            <!-- SEO Optimized Content Block (Crucial for Google Ranking) -->
+            <section id="seo-footer" class="seo-footer" style="padding: 40px; margin-top: auto; max-width: 900px; margin-left: auto; margin-right: auto; text-align: center; color: var(--text-muted);">
+                <h2 style="font-size: 1.1rem; color: var(--text-primary); margin-bottom: 12px; font-weight: 600;" data-i18n-text="seoTitle">The Most Secure PDF Extractor & Splitter Online</h2>
+                <p style="font-size: 0.85rem; line-height: 1.6; margin-bottom: 20px;" data-i18n-text="seoDesc">
+                    ExPDF is an advanced, client-side PDF tool designed to help you extract PDF pages, remove specific pages from a document, or compress PDF sizes without ever uploading your private files to a server. Because everything runs locally in your browser, your sensitive documents never leave your device.
+                </p>
+                <div style="display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; font-size: 0.8rem;">
+                    <div><i data-lucide="shield-check" style="width: 14px; height: 14px; display: inline-block; vertical-align: -2px; margin-right: 4px; color: #10b981;"></i> <span data-i18n-text="seoFeature1">100% Serverless & Secure</span></div>
+                    <div><i data-lucide="zap" style="width: 14px; height: 14px; display: inline-block; vertical-align: -2px; margin-right: 4px; color: #f59e0b;"></i> <span data-i18n-text="seoFeature2">Instant Processing</span></div>
+                    <div><i data-lucide="award" style="width: 14px; height: 14px; display: inline-block; vertical-align: -2px; margin-right: 4px; color: #6366f1;"></i> <span data-i18n-text="seoFeature3">No Quality Loss</span></div>
+                </div>
+            </section>
+            
+        </main>
+    </div>
+
+    <!-- Full-screen Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay hidden">
+        <div class="loader-content">
+            <div class="loading-spinner"></div>
+            <h3 id="loader-title">Analyzing PDF</h3>
+            <p id="loader-subtitle">Rendering page thumbnails...</p>
+            <div class="progress-bar-container">
+                <div id="loader-progress" class="progress-bar-fill" style="width: 0%;"></div>
+            </div>
+            <span id="loader-percent">0%</span>
+        </div>
+    </div>
+
+    <!-- PDF JS and pdf-lib and JSZip Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+    <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.2/Sortable.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    
+    <!-- Application Logic & 3D Particle Scripts -->
+    <script src="assets/particle-3d.js"></script>
+    <script src="i18n.js?v=33"></script>
+    <script src="app.js?v=33"></script>
+</body>
+</html>
